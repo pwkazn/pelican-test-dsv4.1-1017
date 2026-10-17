@@ -1,3 +1,16 @@
+# 总结
+| | |
+|---|---|
+|Token 用量 | 22,435,755 tok|
+|未缓存输入|75,809 tok|
+|缓存读取|22,120,576 tok|
+|输出|239,370 tok|
+|总耗时|1h3min15s|
+
+
+效果图<img width="1200" height="750" alt="image" src="https://github.com/user-attachments/assets/948846e3-3dcb-4613-a10b-180e797b4d44" />
+
+
 # Pelican Point · 鹈鹕的环岛午后
 
 **在线访问：** https://pwkazn.github.io/pelican-test-dsv4.1-1017/

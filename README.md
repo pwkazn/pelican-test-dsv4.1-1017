@@ -1,5 +1,7 @@
 # Pelican Point · 鹈鹕的环岛午后
 
+**在线访问：** https://pwkazn.github.io/pelican-test-dsv4.1-1017/
+
 一只鹈鹕骑着薄荷色复古单车，在落日海边的小岛上慢慢绕圈。整个小世界用 three.js 程序化建模，无外部图片素材。
 
 ## 运行

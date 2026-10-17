@@ -1,0 +1,9 @@
+{
+  "name": "pelican-point",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pelican Point — a little three.js seaside bicycle loop.",
+  "scripts": {
+    "start": "python3 -m http.server 4173"
+  }
+}

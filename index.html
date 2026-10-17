@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f3c9ac" />
+  <meta name="description" content="一只鹈鹕骑着复古单车，在落日海边的小岛上绕圈。一个用 three.js 制作的治愈系 3D 小世界。" />
+  <title>Pelican Point · 鹈鹕的环岛午后</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f6e8d2'/%3E%3Cpath d='M18 39c6-2 9-10 9-18 0 0 8 1 11 8 5 1 10 4 12 8-6 4-13 3-18 0-2 4-6 6-11 5-2 0-3-2-3-3z' fill='%23fdf8ee'/%3E%3Cpath d='M38 29l12 3-11 4z' fill='%23e9a145'/%3E%3Ccircle cx='35' cy='27' r='1.6' fill='%232d392f'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="experience" id="experience">
+    <canvas id="world" aria-label="一只鹈鹕骑着自行车绕着小岛骑行的三维动画"></canvas>
+
+    <div class="wash" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <p class="eyebrow"><span class="eyebrow-dot"></span> A SEASIDE DAYDREAM <span class="eyebrow-no">NO. 07</span></p>
+      <h1 class="title">
+        <span class="title-line">Pelican</span>
+        <span class="title-line title-italic">Point<span class="title-dot">.</span></span>
+      </h1>
+      <p class="title-cn">鹈鹕的环岛午后</p>
+      <p class="title-note">它没有目的地<br />只是想吹吹海风。</p>
+    </header>
+
+    <div class="weather" aria-hidden="true">
+      <span class="weather-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+          <circle cx="12" cy="12" r="4.4" />
+          <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1" />
+        </svg>
+      </span>
+      <span class="weather-copy"><b>17:42</b><small>海风 3 级 · 23°C</small></span>
+    </div>
+
+    <section class="journey" aria-label="骑行进度">
+      <div class="journey-head">
+        <span class="live"><i></i> 正在环岛</span>
+        <span class="journey-en">ON THE LOOP</span>
+      </div>
+      <div class="journey-main">
+        <div class="lap">
+          <span class="lap-number" id="lapNumber">01</span>
+          <span class="lap-label">圈 · LAP</span>
+        </div>
+        <div class="progress" aria-hidden="true">
+          <span class="progress-track"></span>
+          <span class="progress-fill" id="progressFill"></span>
+          <span class="progress-pelican" id="progressPelican">
+            <svg viewBox="0 0 30 18" fill="none">
+              <path d="M4.6 12.4c3.3-.9 4.6-5.4 4.2-9 0 0 4.2.8 5.3 4.8 2.6.4 5.5 2 6.7 4-3.1 2.1-6.8 1.8-9.3.1-1.3 2.2-3.7 3.1-5.8 2.6-.8-.2-1-.8-1.1-1.2z" fill="currentColor"/>
+              <path d="M15.8 8.3l6.3 1.9-5.8 2.3z" fill="#eaa34d"/>
+              <circle cx="14.1" cy="7.2" r=".8" fill="#25322b"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <p class="journey-foot"><span>海岸环路</span><span>2.7 km</span></p>
+    </section>
+
+    <div class="controls">
+      <button class="control" id="playButton" type="button" aria-label="暂停骑行" aria-pressed="false" title="暂停 / 继续 (空格)">
+        <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.4 5.5v13M15.6 5.5v13" /></svg>
+        <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.1l10.1 6.9-10.1 6.9z" /></svg>
+      </button>
+      <button class="control control-small" id="resetButton" type="button" aria-label="重置视角" title="重置视角 (R)">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5.1 9.2A7.5 7.5 0 1 1 4.8 14" />
+          <path d="M5.2 4.6v4.9h4.9" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="hint">
+      <span>拖动环视</span><i></i><span>滚轮缩放</span><i></i><span>双击复位</span>
+    </div>
+
+    <div class="sound-fade" aria-hidden="true"></div>
+  </main>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-wheel">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <p class="loader-title">Pelican Point</p>
+      <p class="loader-copy">正在牵出那辆薄荷色单车…</p>
+      <span class="loader-line"><i></i></span>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="noscript">这个小岛需要 JavaScript 和 WebGL 才能陪你吹海风。</div>
+  </noscript>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
